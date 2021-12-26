@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const LogoContainer = styled.div`
-	height:28px;
-	width: 28px;
+	height:20px;
+	width: 20px;
 	margin-top:12px;
     margin-right: 1.25rem;
     display: flex;

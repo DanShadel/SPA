@@ -5,18 +5,6 @@ import { updateAccessTokenAction } from '../actions/userActions';
 import { getUserPlaylistsAction, getTracksForPlaylistAction } from '../actions/playlistActions';
 import { useHistory } from "react-router-dom";
 
-const Playlist = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 80%;
-    height: 10%;
-    border:1px solid white;
-    align-items: center;
-    justify-content: space-between;
-    margin-left: 10%;
-    margin-bottom: 1%;
-`;
-
 const Container = styled.div`
     width: 100%;
     height: 100%;
@@ -24,29 +12,48 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     color: white;
+    margin-top: 2%;
+`;
+
+const Playlist = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    height: 10%;
+    border: none;
+    box-shadow: 0px 0px 2px #3d3d3d;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 10%;
+    margin-bottom: 2%;
 `;
 
 const Artwork = styled.div`
-    width: auto;
-    height: 90%;
+    height: 100%;
     display: flex;
     margin-left: 2%;
+    object-fit: cover;
 `;
 
 const Title = styled.div`
-    font-size: 1.5rem;
-    text-align: center;
-
+    width: 75%;
+    margin-left: 5%;
+    margin-right: 2%;
+    font-size: 1rem;
+    text-align: left;
+    overflow: hidden;
 `;
 
 const Count = styled.div`
     width: 10%;
-    margin-right: 2%;
+    text-align: center;
+    margin-right: 5%;
 `;
 
 const imgStyles = {
-    maxWidth: '100%',
-    maxHeight: '100%'
+    maxHeight: '100%',
+    objectFit: 'cover',
+    overflow: 'hidden'
 };
 
 const onClick = (playlist, history, getTracksForPlaylistAction) => {
@@ -79,7 +86,7 @@ const Playlists = ({ updateAccessTokenAction, user, playlists, getUserPlaylistsA
                         <Playlist key={index} onClick={() => onClick(playlist, history, getTracksForPlaylistAction)}>
                             <Artwork> <img src={playlist.images[0].url} style={imgStyles} /> </Artwork>
                             <Title>{playlist.name}</Title>
-                            <Count>length: {playlist.tracks.total}</Count>
+                            <Count>{playlist.tracks.total} tracks</Count>
                         </Playlist>
                     );
                 })

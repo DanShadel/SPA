@@ -12,6 +12,7 @@ const Container = styled.div`
 	background-color: #191414;
     display: block;
     flex-direction: column;
+    font-family: Sans-Serif;
 `;
 
 const Content = styled.div`
