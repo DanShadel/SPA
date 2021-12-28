@@ -1,11 +1,17 @@
 import React from 'react';
 import styled from 'styled-components'
 import { connect } from 'react-redux';
-import Mural from './Mural';
+import Mural from './Mural.jsx';
+import NoContent from './NoContent.jsx'
 
-const Analysis = () => {
+const Analysis = ({tracks}) => {
+
     return (
-        <Mural />
+        <>
+            {tracks.length === 0 ? <NoContent/> : 
+            <Mural />
+            }
+        </>
     );
 };
 

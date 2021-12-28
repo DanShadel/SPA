@@ -10,7 +10,7 @@ const Container = styled.div`
     height: 5%;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
 `;
 
 const LogoContainer = styled.div`
@@ -19,10 +19,32 @@ const LogoContainer = styled.div`
 	justify-content: space-between;
 `;
 
-export const Navbar = () => {
+const Back = styled.div`
+    display: flex;
+    border-bottom: 2px solid #ecebe8;
+    width: 12px;
+    height: 12px;
+    border-left: 2px solid #ecebe8;
+    transform: rotate(45deg);
+`;
+const BackContainer = styled.div`
+    width: 20%;
+    height: 100%;
+    display: flex;
+    margin-left: 5%;
+    align-items: center;
+`;
 
+const onClickBack = () => {
+    console.log('onClickBack fn in navbar.jsx')
+};
+
+export const Navbar = () => {
     return (
         <Container>
+            <BackContainer onClick={onClickBack}>
+                <Back/>
+            </BackContainer>
             <LogoContainer>
                 <Logo img={GitHub} link='https://github.com/DanShadel/SPA' />
                 <Logo img={Twitter} link='https://twitter.com/DanShadel' />
@@ -39,4 +61,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
-

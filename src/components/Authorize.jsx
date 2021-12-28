@@ -18,13 +18,11 @@ const Title = styled.div`
     width: 100%;
     font-size: 2rem;
     text-align: center;
-    color: #ecebe8;
 `;
 
 const Subtitle = styled.div`
     width: 100%;
     font-size: 1.25rem;
-    color: #ecebe8;
     text-align: center;
     margin-top: 10%;
 `;
@@ -33,7 +31,6 @@ const GetStarted = styled.div`
     background-color: #1DB954;
     width: 8rem;
     height: 2rem;
-    color: #ecebe8;
     border-radius: 20px;
     margin-top: 5%;
     display: flex;

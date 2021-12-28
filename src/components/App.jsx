@@ -13,6 +13,7 @@ const Container = styled.div`
     display: block;
     flex-direction: column;
     font-family: Sans-Serif;
+    color: #ecebe8;
 `;
 
 const Content = styled.div`
