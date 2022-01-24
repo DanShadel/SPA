@@ -30,8 +30,8 @@ const App = () => {
                 <Container>
                     <Navbar />
                     <Content>
-                        <Routes/>
-                    </Content> 
+                        <Routes />
+                    </Content>
                 </Container>
             </Router>
         </Provider >

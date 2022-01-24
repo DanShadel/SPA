@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Logo from './Logo.jsx';
 import GitHub from '../assets/GitHub-logo.png';
 import Twitter from '../assets/Twitter-logo.png';
+import { useHistory } from 'react-router-dom';
 
 const Container = styled.div`
     width: 100%;
@@ -11,6 +12,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 5%;
 `;
 
 const LogoContainer = styled.div`
@@ -35,15 +37,17 @@ const BackContainer = styled.div`
     align-items: center;
 `;
 
-const onClickBack = () => {
+const onClickBack = (history) => {
+    history.goBack()
     console.log('onClickBack fn in navbar.jsx')
 };
 
 export const Navbar = () => {
+    const history = useHistory();
     return (
         <Container>
-            <BackContainer onClick={onClickBack}>
-                <Back/>
+            <BackContainer onClick={() => onClickBack(history)}>
+                <Back />
             </BackContainer>
             <LogoContainer>
                 <Logo img={GitHub} link='https://github.com/DanShadel/SPA' />

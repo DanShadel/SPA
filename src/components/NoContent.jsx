@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const Container = styled.div`
     width: 100%;
@@ -22,17 +24,26 @@ const GoBack = styled.div`
     align-items: center;
 `;
 
-const onClick = () => {
-    console.log('nothing yet in NoContent component');
-}
 
-const NoContent = () => {
+const NoContent = ({ user }) => {
+    const history = useHistory();
+
+    const onClick = () => {
+        history.goBack()
+    }
+
     return (
         <Container>
             Sorry, we couldn't find any tracks associated with this playlist. Select another playlist to try again.
-            <GoBack onClick={onClick}> Go Back </GoBack>
+            <GoBack onClick={() => onClick()}> Go Back </GoBack>
         </Container>
     );
 };
 
-export default NoContent;
+const mapDispatchToProps = {}
+
+const mapStateToProps = ({ user }) => {
+    return { user }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NoContent);

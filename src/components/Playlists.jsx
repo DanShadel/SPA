@@ -1,9 +1,12 @@
 import React from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { updateAccessTokenAction } from '../actions/userActions';
-import { getUserPlaylistsAction, getTracksForPlaylistAction } from '../actions/playlistActions';
+import { getUserPlaylistsAction, getTracksForPlaylistAction, } from '../actions/playlistActions';
 import { useHistory } from "react-router-dom";
+import { updateLoadingAction, updateActivePlaylistAction } from '../actions/sessionActions';
+import Loader from './Loader';
+import { slideUp, fadeIn } from '../helpers/animations.js';
 
 const Container = styled.div`
     width: 100%;
@@ -13,6 +16,7 @@ const Container = styled.div`
     flex-direction: column;
     color: white;
     margin-top: 2%;
+    animation: ${slideUp} .5s linear;
 `;
 
 const Playlist = styled.div`
@@ -56,19 +60,33 @@ const imgStyles = {
     overflow: 'hidden'
 };
 
-const onClick = (playlist, history, getTracksForPlaylistAction) => {
-    getTracksForPlaylistAction(playlist)
-    history.push('/analysis')
-}
+const YourPlaylists = styled.div`
+    width: 100%;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 5%;
+`;
 
-const Playlists = ({ updateAccessTokenAction, user, playlists, getUserPlaylistsAction, getTracksForPlaylistAction }) => {
+const Playlists = ({ updateAccessTokenAction, user, playlists, getUserPlaylistsAction, getTracksForPlaylistAction, updateLoadingAction, updateActivePlaylistAction, session }) => {
     const history = useHistory();
+    const [localLoading, setLocalLoading] = React.useState(true)
+
+    const onClick = (playlist) => {
+        updateLoadingAction(true);
+        updateActivePlaylistAction(playlist.name)
+        getTracksForPlaylistAction(playlist);
+        history.push('/analysis');
+    }
+
     React.useEffect(() => {
         if (window.location.href.split('#')[1]) {
             const queryString = window.location.href.split('#')[1]
             const accessToken = queryString.split('&')[0].split('=')[1];
             updateAccessTokenAction(accessToken);
         }
+
+        setTimeout(() => setLocalLoading(false), 1500)
+
     }, []);
 
     React.useEffect(() => {
@@ -78,31 +96,39 @@ const Playlists = ({ updateAccessTokenAction, user, playlists, getUserPlaylistsA
 
     }, [user.accessToken])
 
-    return (
-        <Container>
-            {
-                playlists.map((playlist, index) => {
-                    return (
-                        <Playlist key={index} onClick={() => onClick(playlist, history, getTracksForPlaylistAction)}>
-                            <Artwork> <img src={playlist.images[0].url} style={imgStyles} /> </Artwork>
-                            <Title>{playlist.name}</Title>
-                            <Count>{playlist.tracks.total} tracks</Count>
-                        </Playlist>
-                    );
-                })
-            }
-        </Container>
-    );
+
+    if (session.loading === true || localLoading === true) {
+        return <Loader />
+    } else {
+        return (
+            <Container>
+                <YourPlaylists> Your playlists</YourPlaylists>
+                {
+                    playlists.map((playlist, index) => {
+                        return (
+                            <Playlist key={index} onClick={() => onClick(playlist, history, getTracksForPlaylistAction, updateLoadingAction)}>
+                                <Artwork> <img src={playlist.images[0].url} style={imgStyles} /> </Artwork>
+                                <Title>{playlist.name}</Title>
+                                <Count>{playlist.tracks.total} tracks</Count>
+                            </Playlist>
+                        );
+                    })
+                }
+            </Container>
+        );
+    }
 };
 
 const mapDispatchToProps = {
     updateAccessTokenAction,
     getUserPlaylistsAction,
     getTracksForPlaylistAction,
+    updateLoadingAction,
+    updateActivePlaylistAction,
 }
 
-const mapStateToProps = ({ user, playlists }) => {
-    return { user, playlists }
+const mapStateToProps = ({ user, playlists, session }) => {
+    return { user, playlists, session }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Playlists);

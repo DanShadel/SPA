@@ -2,6 +2,7 @@ import { put, select, takeEvery } from 'redux-saga/effects'
 import * as types from '../actions/actionTypes';
 import { get } from './../helpers/http';
 import { updatePlaylistsAction, updateTracksAction } from '../actions/playlistActions';
+import { updateLoadingAction } from '../actions/sessionActions';
 
 const baseApi = 'https://api.spotify.com/v1';
 const selectToken = state => state.user.accessToken;
@@ -19,6 +20,7 @@ export function* getUserPlaylists(action) {
   const headers = { Authorization: 'Bearer ' + token }
   const response = yield get(baseApi + '/me/playlists?limit=50', headers);
   yield put(updatePlaylistsAction(response.data.items));
+  yield put(updateLoadingAction(false));
 }
 
 export function* getTracksForPlaylist(action) {
@@ -36,6 +38,7 @@ export function* getTracksForPlaylist(action) {
   }
 
   yield put(updateTracksAction(tracks))
+  yield put(updateLoadingAction(false));
 }
 
 
