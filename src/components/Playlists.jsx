@@ -85,7 +85,7 @@ const Playlists = ({ updateAccessTokenAction, user, playlists, getUserPlaylistsA
             updateAccessTokenAction(accessToken);
         }
 
-        setTimeout(() => setLocalLoading(false), 1500)
+        setTimeout(() => setLocalLoading(false), 500)
 
     }, []);
 

@@ -39,7 +39,6 @@ const BackContainer = styled.div`
 
 const onClickBack = (history) => {
     history.goBack()
-    console.log('onClickBack fn in navbar.jsx')
 };
 
 export const Navbar = () => {

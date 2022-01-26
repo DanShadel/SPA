@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import Mural from './Mural.jsx';
 import NoContent from './NoContent.jsx'
 import { updateActiveGraphAction } from '../actions/sessionActions'
-import { Bars } from 'react-loading-icons'
 import Loader from './Loader.jsx';
 import { fadeIn } from '../helpers/animations.js';
+import Popularity from './Popularity.jsx';
+import Bpm from './Bpm.jsx';
 
 const Container = styled.div`
     height: 100%;
@@ -50,15 +51,24 @@ const Analysis = ({ tracks, session, updateActiveGraphAction }) => {
         switch (session.activeGraph) {
             case 'mural':
                 return <Mural />
+            case 'popularity':
+                return <Popularity tracks={tracks} />
+            case 'bpm':
+                return <Bpm />
             default:
                 return <NoContent />
         }
     }
 
     const handleGraph = () => {
+        console.log(session.activeGraph)
         switch (session.activeGraph) {
             case 'mural':
-                updateActiveGraphAction('sunburst');
+                updateActiveGraphAction('popularity');
+                return;
+            case 'popularity':
+                updateActiveGraphAction('bpm');
+                return;
             default:
                 updateActiveGraphAction('default');
         }

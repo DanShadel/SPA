@@ -41,8 +41,13 @@ export function* getTracksForPlaylist(action) {
   yield put(updateLoadingAction(false));
 }
 
-
 export function* getGenresForPlaylist(action) {
 
   const token = yield select(selectToken);
+}
+
+export function* getBpmInformation(action) {
+
+  const data = yield get()
+
 }
