@@ -26,7 +26,8 @@ const MuralItem = styled.div`
 
 const PlaylistName = styled.div`
     margin-bottom: 5%;
-    width: 100%;
+    width: 90%;
+    margin-left: 5%;
     font-size: 2rem;
     text-align: center;
 `;
@@ -72,7 +73,7 @@ const Mural = ({ tracks, session }) => {
                         <MuralRow height={getHeight(size)}>
                             {row.map((track) => {
                                 return (
-                                    <MuralItem>
+                                    <MuralItem onClick={() => {window.open(track.track.external_urls.spotify)}}>
                                         <img src={track.track.album.images[0].url} />
                                     </MuralItem>
                                 )

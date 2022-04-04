@@ -31,7 +31,7 @@ const NextGraph = styled.div`
     height: 2rem;
     border-radius: 20px;
     border: 1px solid #ecebe8;
-    margin-top: 5%;
+    margin-top: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
